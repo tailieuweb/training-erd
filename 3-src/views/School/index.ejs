@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/jquery-3.5.1.min.js"></script>
+  <title>Class</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Class</h1>
+
+    <a href="/school/add" class="btn btn-success float-left m-2">Add</a>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <!-- <th scope="col">Student</th> -->
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% schools.forEach(function(item){ %>
+        <tr class="student">
+          <th scope="row"><%- item.name %></th>
+          <!-- <th scope="col"></th> -->
+          <td>
+
+            <a href="/school/edit/<%-item._id%>" class="btn btn-primary">Edit</a>
+            <form action="/school/delete/<%= item._id %>" method="get" class="d-inline">
+              <button type="submit" onclick="return confirm('Are you sure you want to delete <%- item.name %>') "
+                class="btn btn-danger">Delete</button>
+            </form>
+
+          </td>
+          <td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <!-- <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav> -->
+  </div>
+</body>
+
+</html>
