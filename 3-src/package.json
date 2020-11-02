@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.10",
     "mongoose-paginate": "^5.0.3",
+    "nodemon": "^2.0.6",
     "random-name": "^0.1.2"
   }
 }

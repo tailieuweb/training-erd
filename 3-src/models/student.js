@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
-const student = new mongoose.Schema({
-    code: String,
+const Student = new mongoose.Schema({
     name: String,
     email: String,
-    school: String
+    class: { type: mongoose.Schema.Types.ObjectId, ref: 'classes' }
 });
-module.exports = mongoose.model("Student", student);
+module.exports = mongoose.model("student", Student);

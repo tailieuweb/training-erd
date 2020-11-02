@@ -16,10 +16,6 @@
     <a href="/student" class="btn btn-success float-right m-2">Home</a>
     <form action="./add" method="POST">
       <div class="form-group">
-        <label>Code</label>
-        <input type="text" name="code" class="form-control" placeholder="Enter code">
-      </div>
-      <div class="form-group">
         <label>Name</label>
         <input type="text" name="name" class="form-control" placeholder="Enter name">
       </div>
@@ -30,9 +26,9 @@
       <div class="form-group">
         <label for="Class">Class</label>
 
-        <select class="form-control" name="school" id="exampleFormControlSelect1">
-          <% schools.forEach(function(item){ %>
-          <option value="<%- item.name %>"><%- item.name %></option>
+        <select class="form-control" name="classes" id="exampleFormControlSelect1">
+          <% classess.forEach(function(item){ %>
+          <option value="<%- item.id %>"><%- item.name %></option>
           <% }); %>
         </select>
 

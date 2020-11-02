@@ -1,50 +1,50 @@
 
-const School = require("../models/school");
+const Classes = require("../models/classes");
 
 module.exports.index = function (req, res) {
-  School.find(function (err, data) {
+  Classes.find(function (err, data) {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
-      res.render("school/index", { schools: data });
+      res.render("classes/index", { classess: data });
     }
   })
 }
 
 module.exports.add = function (req, res) {
-  res.render("school/add");
+  res.render("classes/add");
 }
 
 module.exports.insertClass = function (req, res) {
-  var schools = [];
-  let school = {
+  var classess = [];
+  let classes = {
     name: req.body.name,
   }
-  schools.push(school);
+  classess.push(classes);
 
-  School.collection.insertMany(schools, (err) => {
+  Classes.collection.insertMany(classess, (err) => {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
       console.log("finish");
-      res.redirect("/school");
+      res.redirect("/classes");
     }
   });
 };
 
 module.exports.edit = function (req, res) {
-  School.findById(req.params.id, function (err, item) {
+  Classes.findById(req.params.id, function (err, item) {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
-      res.render("school/edit", { school: item });
+      res.render("classes/edit", { classes: item });
     }
   });
 }
 
 module.exports.editClass = function (req, res) {
-  School.updateOne(
-    { _id: req.body.classSchoolID },
+  Classes.updateOne(
+    { _id: req.body.classClassesID },
     {
       name: req.body.name,
     },
@@ -52,17 +52,17 @@ module.exports.editClass = function (req, res) {
       if (err) {
         res.json({ result: 0, error: err });
       } else {
-        res.redirect("/school");
+        res.redirect("/classes");
       }
     }
   );
 }
 module.exports.deleteClass = function (req, res) {
-  School.deleteOne({ _id: req.params.id }, function (err) {
+  Classes.deleteOne({ _id: req.params.id }, function (err) {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
-      res.redirect("/school");
+      res.redirect("/classes");
     }
   });
 }

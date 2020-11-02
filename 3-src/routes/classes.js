@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var controller = require("../controller/school");
+var controller = require("../controller/classes");
 
 router.get("/", controller.index);
 router.get("/add", controller.add);

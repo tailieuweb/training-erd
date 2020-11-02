@@ -1,28 +1,27 @@
 const Student = require("../models/student");
-const School = require("../models/school");
+const Classes = require("../models/classes");
 const bodyParser = require("body-parser");
 
 module.exports.add = function (req, res) {
-  School.find(function (err, dataSchool) {
+  Classes.find(function (err, dataclasses) {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
-      res.render("student/add", { schools: dataSchool });
+      res.render("student/add", { classess: dataclasses });
     }
   });
 };
 
 module.exports.insertStudent = function (req, res) {
   var students = [];
-  //for (let index = 0; index < 20000; index++) {
-  let student = {
-    code: req.body.code + index,
-    name: req.body.name + index,
-    email: req.body.email,
-    school: req.body.school,
-  };
-  students.push(student);
-  //}
+  for (let index = 0; index < 10; index++) {
+    let student = {
+      name: req.body.name + index,
+      email: req.body.email,
+      class: req.body.classes,
+    };
+    students.push(student);
+  }
   Student.collection.insertMany(students, (err) => {
     if (err) {
       res.json({ result: 0, error: err });
@@ -34,7 +33,7 @@ module.exports.insertStudent = function (req, res) {
 };
 
 module.exports.edit = async function (req, res) {
-  const data = await School.find(function (err, data) {
+  const data = await Classes.find(function (err, data) {
     if (err) {
       res.json({ result: 0, error: err });
     } else {
@@ -49,17 +48,16 @@ module.exports.edit = async function (req, res) {
     }
   });
 
-  res.render("student/edit", { student: item, school: data });
+  res.render("student/edit", { student: item, classes: data });
 };
 
 module.exports.editStudent = function (req, res) {
   Student.updateOne(
     { _id: req.body.student_id },
     {
-      code: req.body.code,
       name: req.body.name,
       email: req.body.email,
-      school: req.body.school,
+      class: req.body.classes,
     },
     function (err) {
       if (err) {
@@ -86,12 +84,15 @@ module.exports.pagination = async function (req, res) {
   var page = parseInt(req.query.page) || 1;
   var perPage = 10;
   var drop = (page - 1) * perPage;
-  var students = await Student.find();
+
+
   var numberPage = (await Student.estimatedDocumentCount()) / perPage;
   var start = 0;
   var studentPerPage = await Student.find(null, null, { skip: drop }).limit(
     perPage
-  );
+  ).populate('class')
+
+
   var baseUrl = "?page=";
   res.render("student/index", {
     students: studentPerPage,
@@ -111,12 +112,12 @@ module.exports.search = async function (req, res) {
   //   numberSP++;
   //   return student.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   // });
-  var perPage = 2;
+  var perPage = 10;
   var drop = (page - 1) * perPage;
   var end = page * perPage;
   const studentsSearch = await Student.find({ name: { $regex: q } }, null, {
     skip: drop,
-  }).limit(perPage);
+  }).limit(perPage).populate('class');
 
   var start = 0;
   var numberPage =

@@ -14,7 +14,7 @@
   <div class="container">
     <h1 class="title">Class</h1>
 
-    <a href="/school/add" class="btn btn-success float-left m-2">Add</a>
+    <a href="/classes/add" class="btn btn-success float-left m-2">Add</a>
 
     <table class="table">
       <thead>
@@ -25,14 +25,14 @@
         </tr>
       </thead>
       <tbody>
-        <% schools.forEach(function(item){ %>
+        <% classess.forEach(function(item){ %>
         <tr class="student">
           <th scope="row"><%- item.name %></th>
           <!-- <th scope="col"></th> -->
           <td>
 
-            <a href="/school/edit/<%-item._id%>" class="btn btn-primary">Edit</a>
-            <form action="/school/delete/<%= item._id %>" method="get" class="d-inline">
+            <a href="/classes/edit/<%-item._id%>" class="btn btn-primary">Edit</a>
+            <form action="/classes/delete/<%= item._id %>" method="get" class="d-inline">
               <button type="submit" onclick="return confirm('Are you sure you want to delete <%- item.name %>') "
                 class="btn btn-danger">Delete</button>
             </form>

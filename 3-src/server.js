@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 
 
 const routeStudent = require('./routes/student');
-const routeSchool = require('./routes/school');
+const routeClasses = require('./routes/classes');
 
 
 app.use(bodyParser.json());
@@ -18,13 +18,13 @@ app.listen(3000);
 const mongoose = require("mongoose");
 const { render } = require("ejs");
 
-mongoose.connect("mongodb://localhost/school",{
+mongoose.connect("mongodb://localhost/StudentManagement", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(()=> {
-    console.log("mongo connection successfully");
+}).then(() => {
+  console.log("mongo connection successfully");
 });
 
 
-app.use("/student",routeStudent);
-app.use("/school",routeSchool);
+app.use("/student", routeStudent);
+app.use("/classes", routeClasses);

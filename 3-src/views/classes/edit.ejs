@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="http:localhost:3000">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>edit-class</title>
+</head>
+
+<body>
+  <h1 class="title">Edit class</h1>
+  <div class="container">
+    <a href="/classes" class="btn btn-success float-right m-2">Home</a>
+    <form action="/classes/edit" method="POST">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="hidden" name="classClassesID" value="<%- classes.id %>">
+        <input type="text" name="name" value="<%- classes.name %>" class="form-control" placeholder="Enter name">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
