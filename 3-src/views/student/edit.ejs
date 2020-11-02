@@ -31,9 +31,13 @@
       <div class="form-group">
         <label for="Class">Class</label>
 
-        <select  class="form-control" name="school" id="exampleFormControlSelect1">
+        <select class="form-control" name="school" id="exampleFormControlSelect1">
           <% school.forEach(function(item){ %>
+          <% if (item.name === student.school){%>
+          <option selected="selected" value="<%- item.name %>"><%- item.name %></option>
+          <% } else  {%>
           <option value="<%- item.name %>"><%- item.name %></option>
+          <% }%>
           <% }); %>
         </select>
 
