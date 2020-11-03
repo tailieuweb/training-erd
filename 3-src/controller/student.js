@@ -14,14 +14,14 @@ module.exports.add = function (req, res) {
 
 module.exports.insertStudent = function (req, res) {
   var students = [];
-  for (let index = 0; index < 10; index++) {
+  //for (let index = 0; index < 10; index++) {
     let student = {
-      name: req.body.name + index,
+      name: req.body.name,
       email: req.body.email,
       class: req.body.classes,
     };
     students.push(student);
-  }
+  //}
   Student.collection.insertMany(students, (err) => {
     if (err) {
       res.json({ result: 0, error: err });

@@ -16,10 +16,6 @@
     <a href="/student" class="btn btn-success float-right m-2">Home</a>
     <form action="/student/edit" method="POST">
       <div class="form-group">
-        <label>Code</label>
-        <input type="text" name="code" value="<%- student.code %>" class="form-control" placeholder="Enter code">
-      </div>
-      <div class="form-group">
         <label>Name</label>
         <input type="hidden" name="student_id" value="<%- student.id %>">
         <input type="text" name="name" value="<%- student.name %>" class="form-control" placeholder="Enter name">
@@ -33,7 +29,7 @@
 
         <select class="form-control" name="classes" id="exampleFormControlSelect1">
           <% classes.forEach(function(item){ %>
-          <% if (item.name === student.classes){%>
+          <% if (item.id == student.class){%>
           <option selected="selected" value="<%- item.id %>"><%- item.name %></option>
           <% } else  {%>
           <option value="<%- item.id %>"><%- item.name %></option>
