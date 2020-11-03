@@ -1,5 +1,10 @@
 <?php
+require 'vendor/autoload.php';
 require 'pagination.php';
+
+//Tạo client
+$client = new MongoDB\Client();
+$db = $client->StudentManagement;
 
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
@@ -14,10 +19,7 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
   $name = $_POST['name'];
   $email = $_POST['email'];
   $class = $_POST['selectClass'];
-}
 
-if($name != '' && $email != '' && $class != '')
-{
   $document =[
     'name' => $name,
     'email' => $email,
@@ -35,17 +37,11 @@ if($name != '' && $email != '' && $class != '')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
     <title>add-student</title>
-    <style>
-      h1{
-        margin : 30px 0;
-      }
-    </style>
 </head>
 <body>
   <div class="container">
-   <h1>Add Student</h1>
+   <h1 class="mt-5">Add Student</h1>
       <a href="index.php" class="btn btn-success float-right mb-2">Home</a>
     <form action="add.php" method="POST">
         <div class="form-group">
@@ -59,11 +55,9 @@ if($name != '' && $email != '' && $class != '')
         <div class="form-group">
           <label for="selectClass">Class</label>
           <select class="form-control" name="selectClass" id="selectClass">
-            <!-- Chạy vòng lặp ở đây -->
             <?php foreach ($classList as $value) {
             ?>
             <option value="<?php echo $value['_id']?>"><?php echo $value['name']?></option>
-            <!-- Chạy vòng lặp ở đây -->
             <?php 
             }
             ?>

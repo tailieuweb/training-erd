@@ -1,17 +1,27 @@
 <?php
+require 'vendor/autoload.php';
 require 'pagination.php';
+
+//Tạo client
+$client = new MongoDB\Client();
+$db = $client->StudentManagement;
 
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
 
-
+//Số trang = 1 mặc định
 $page = 1;
+
+//Nếu trên URL có request page (sau khi click vào button phân trang)
 if(isset($_GET['page']))
 {
   $page = $_GET['page'];
 }
 
+//Số sản phẩm ở một trang :
 $limit = 20;
+
+//Bỏ qua $limit phần tử để lấy $limit phần tử trang tiếp theo : 
 $skip = ($page - 1) * $limit;
 
 $keyword = '';
@@ -22,13 +32,13 @@ if(isset($_GET['keyword']))
     $keyword2 = new \MongoDB\BSON\Regex($keyword);
 }
 
-//dem so luong phan tu de phan trang
-$totalPage = $collectionStudent->count(['$or' => [['name' => $keyword2], ['email' => $keyword2]]])/$limit;
-$totalPage = ceil($totalPage);
+
+//Tổng số trang :
+// $totalPage = ceil($collectionStudent->count()/$limit);
+$totalPage = ceil($collectionStudent->count(['$or' => [['name' => $keyword2], ['email' => $keyword2]]])/$limit);
 
 $studentObject = $collectionStudent->aggregate(array(
     [
-        // '$match' => ['$or' => [['name' => $keyword , ['email' => $keyword]]] ]
         '$match' => ['$or' => [['name' => $keyword2], ['email' => $keyword2]]]
     ],
     [
@@ -40,9 +50,6 @@ $studentObject = $collectionStudent->aggregate(array(
         ]    
     ],
     [
-      '$project' => ['class' => 0]
-    ],
-    [
       '$unwind' => '$classObject'
     ],
     [
@@ -51,7 +58,7 @@ $studentObject = $collectionStudent->aggregate(array(
     [
         '$limit' => $limit
     ]
-  ))->toArray();
+))->toArray();
 
 //
 ?>
@@ -75,7 +82,7 @@ $studentObject = $collectionStudent->aggregate(array(
       <a class="btn btn-success" href="add.php">Add</a>
       <header class="d-flex float-right mb-3">
       <form class="form-inline my-2 my-lg-0 float-right m-2" action="search.php">
-          <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search">
+          <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search" value="<?php echo $keyword?>">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </header>

@@ -1,11 +1,18 @@
 <?php
+require 'vendor/autoload.php';
 require 'pagination.php';
+
+//Tạo client
+$client = new MongoDB\Client();
+$db = $client->StudentManagement;
 
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
 
+//Thực hiện tìm hết danh sách lớp
 $classList = $collectionClass->find()->toArray();
 
+//Thực hiện tìm một sinh viên mang id nhận trên URL
 $id = $_GET['id'];
 $studentList = $collectionStudent->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
 
@@ -40,18 +47,12 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
   <title>edit-student</title>
-  <style>
-    h1 {
-      margin: 30px 0;
-    }
-  </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Edit Student</h1>
+    <h1 class="mt-5">Edit Student</h1>
        <a href="index.php" class="btn btn-success float-right mb-2">Home</a>
      <form action="" method="POST">
          <div class="form-group">
@@ -65,11 +66,11 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
          <div class="form-group">
            <label for="selectClass">Class</label>
            <select class="form-control" name="selectClass" id="selectClass">
-            <!-- Chạy vòng lặp ở đây -->
             <?php foreach ($classList as $value) {
             ?>
-            <option value="<?php echo $value['_id']?>" <?php echo $value['_id'] == $idClass ? 'selected' : ''?>><?php echo $value['name']?></option>
-            <!-- Chạy vòng lặp ở đây -->
+            <option value="<?php echo $value['_id']?>" <?php echo $value['_id'] == $idClass ? 'selected' : ''?>>
+              <?php echo $value['name']?>
+            </option>
             <?php 
             }
             ?>

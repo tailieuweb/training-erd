@@ -1,6 +1,10 @@
 <?php
-
+require 'vendor/autoload.php';
 require 'pagination.php';
+
+//Tạo client
+$client = new MongoDB\Client();
+$db = $client->StudentManagement;
 
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
@@ -27,23 +31,29 @@ $collectionStudent = $db->students;
 // }
 // $collectionStudent->insertMany($documentStudent);
 
-
-
 //Delete
 if(isset($_POST['studentID']))
 {
   $id = new MongoDB\BSON\ObjectID($_POST['studentID']);
   $collectionStudent->deleteOne(['_id' => $id]);
 }
-//
+
+//Số trang = 1 mặc định
 $page = 1;
+
+//Nếu trên URL có request page (sau khi click vào button phân trang)
 if(isset($_GET['page']))
 {
   $page = $_GET['page'];
 }
 
+//Số sản phẩm ở một trang :
 $limit = 20;
+
+//Bỏ qua $limit phần tử để lấy $limit phần tử trang tiếp theo : 
 $skip = ($page - 1) * $limit;
+
+//Tổng số trang :
 $totalPage = ceil($collectionStudent->count()/$limit);
 
 //
@@ -58,9 +68,6 @@ $studentObject = $collectionStudent->aggregate(array(
       ]
   ],
   [
-    '$project' => ['class' => 0]
-  ],
-  [
     '$unwind' => '$classObject'
   ],
   [
@@ -70,7 +77,8 @@ $studentObject = $collectionStudent->aggregate(array(
     '$limit' => $limit
   ],
 ))->toArray();
-
+// var_dump($studentObject[0]['classObject']);
+// die();
 ?>
 
 <!DOCTYPE html>
@@ -79,20 +87,11 @@ $studentObject = $collectionStudent->aggregate(array(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script
-    src="https://code.jquery.com/jquery-3.5.1.js"
-    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
     <title>Student</title>
-    <style>
-      h1{
-        margin-top : 50px;
-      }
-    </style>
 </head>
 <body>
     <div class="container">
-      <h1 class="title">Student List</h1>
+      <h1 class="title mt-5">Student List</h1>
       <a class="btn btn-success" href="add.php">Add</a>
       <header class="d-flex float-right mb-3">
         <form class="form-inline my-2 my-lg-0 float-right m-2" action="search.php">
@@ -133,9 +132,9 @@ $studentObject = $collectionStudent->aggregate(array(
             ?>
           </tbody>
         </table>
-            <?php
-            echo createPageLinks($totalPage, $page);
-            ?>
+          <?php
+          echo createPageLinks($totalPage, $page);
+          ?>
     </div>
 </body>
 </html>
