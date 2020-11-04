@@ -15,12 +15,12 @@ module.exports.add = function (req, res) {
 module.exports.insertStudent = function (req, res) {
   var students = [];
   //for (let index = 0; index < 10; index++) {
-    let student = {
-      name: req.body.name,
-      email: req.body.email,
-      class: req.body.classes,
-    };
-    students.push(student);
+  let student = {
+    name: req.body.name,
+    email: req.body.email,
+    class: req.body.classes,
+  };
+  students.push(student);
   //}
   Student.collection.insertMany(students, (err) => {
     if (err) {
@@ -84,14 +84,11 @@ module.exports.pagination = async function (req, res) {
   var page = parseInt(req.query.page) || 1;
   var perPage = 10;
   var drop = (page - 1) * perPage;
-
-
   var numberPage = (await Student.estimatedDocumentCount()) / perPage;
   var start = 0;
   var studentPerPage = await Student.find(null, null, { skip: drop }).limit(
     perPage
   ).populate('class')
-
 
   var baseUrl = "?page=";
   res.render("student/index", {

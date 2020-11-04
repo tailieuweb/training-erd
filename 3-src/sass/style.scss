@@ -1,0 +1,23 @@
+body {
+  background: linear-gradient(
+    0deg,
+    rgba(210, 232, 232, 1) 35%,
+    rgba(233, 233, 230, 1) 100%
+  );
+}
+
+$color: #dc3545;
+table {
+  thead tr {
+    th:nth-child(1),
+    th:nth-child(3) {
+      color: $color;
+    }
+  }
+  tbody tr {
+    th:nth-child(1),
+    td:nth-child(3) {
+      color: $color;
+    }
+  }
+}

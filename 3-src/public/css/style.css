@@ -1,0 +1,10 @@
+body {
+  background: linear-gradient(0deg, #d2e8e8 35%, #e9e9e6 100%); }
+
+table thead tr th:nth-child(1),
+table thead tr th:nth-child(3) {
+  color: #dc3545; }
+
+table tbody tr th:nth-child(1),
+table tbody tr td:nth-child(3) {
+  color: #dc3545; }

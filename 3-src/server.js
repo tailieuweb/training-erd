@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.set("views", "./views");
-app.listen(3000);
+
 
 //ket noi mongodb
 const mongoose = require("mongoose");
@@ -28,3 +28,4 @@ mongoose.connect("mongodb://localhost/StudentManagement", {
 
 app.use("/student", routeStudent);
 app.use("/classes", routeClasses);
+app.listen(3000);
