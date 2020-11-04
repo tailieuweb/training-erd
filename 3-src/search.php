@@ -16,6 +16,14 @@ $db = $client->StudentManagement;
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
 
+//getLoginSession
+session_start();
+if(!isset($_SESSION['login']))
+{
+  header('Location: login.php');
+  die();
+}
+
 //Số trang = 1 mặc định
 $page = 1;
 
@@ -77,16 +85,12 @@ $studentObject = $collectionStudent->aggregate(array(
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Student</title>
-    <style>
-      h1{
-        margin-top : 50px;
-      }
-    </style>
 </head>
 <body>
     <div class="container">
-      <h1 class="title">Student List</h1>
+      <h1 class="title mt-5">Student List</h1>
       <a class="btn btn-success" href="add.php">Add</a>
+      <a class="btn btn-warning" href="login.php">Log out</a>
       <header class="d-flex float-right mb-3">
       <form class="form-inline my-2 my-lg-0 float-right m-2" action="search.php">
           <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search" value="<?php echo $keyword?>">

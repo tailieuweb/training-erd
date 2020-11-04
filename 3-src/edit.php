@@ -9,6 +9,14 @@ $db = $client->StudentManagement;
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
 
+//getLoginSession
+session_start();
+if(!isset($_SESSION['login']))
+{
+  header('Location: login.php');
+  die();
+}
+
 //Thực hiện tìm hết danh sách lớp
 $classList = $collectionClass->find()->toArray();
 

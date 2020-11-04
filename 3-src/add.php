@@ -9,6 +9,15 @@ $db = $client->StudentManagement;
 $collectionClass = $db->classes;
 $collectionStudent = $db->students;
 
+//getLoginSession
+session_start();
+if(!isset($_SESSION['login']))
+{
+  header('Location: login.php');
+  die();
+}
+
+
 $classList = $collectionClass->find()->toArray();
 
 $name = '';
