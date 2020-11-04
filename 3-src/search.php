@@ -2,6 +2,13 @@
 require 'vendor/autoload.php';
 require 'pagination.php';
 
+//Use scss, compile and put scss into css
+require_once "scssphp/scss.inc.php";
+use ScssPhp\ScssPhp\Compiler;
+$scss = new Compiler();
+$scss_string = file_get_contents('css/style.scss');
+file_put_contents('css/style.css', $scss->compile($scss_string));
+
 //Tạo client
 $client = new MongoDB\Client();
 $db = $client->StudentManagement;
@@ -68,7 +75,7 @@ $studentObject = $collectionStudent->aggregate(array(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
     <title>Student</title>
     <style>
       h1{
