@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="http:localhost:3000">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Register</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 class="title">Register</h1>
+    <a href="/admin" class="btn btn-success float-right m-2">Home</a>
+    <form action="./register" method="POST">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" name="email" class="form-control" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="text" name="password" class="form-control" placeholder="Enter password">
+          </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter name">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>

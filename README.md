@@ -1,5 +1,4 @@
 # training-erd
 
-Hướng dẫn chạy SASS
+create Register
 
-chạy lệnh: npm run sass để biên dịch scss sang css

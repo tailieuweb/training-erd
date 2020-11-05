@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 
 const routeStudent = require('./routes/student');
 const routeClasses = require('./routes/classes');
+const routeAdmin = require('./routes/admin');
 
 
 app.use(bodyParser.json());
@@ -28,4 +29,5 @@ mongoose.connect("mongodb://localhost/StudentManagement", {
 
 app.use("/student", routeStudent);
 app.use("/classes", routeClasses);
+app.use("/admin", routeAdmin);
 app.listen(3000);
