@@ -6,8 +6,7 @@ require 'pagination.php';
 $client = new MongoDB\Client();
 $db = $client->StudentManagement;
 
-$collectionClass = $db->classes;
-$collectionStudent = $db->students;
+$collectionTeacher = $db->teachers;
 
 //getLoginSession
 session_start();
@@ -17,36 +16,29 @@ if(!isset($_SESSION['login']))
   die();
 }
 
-//Thực hiện tìm hết danh sách lớp
-$classList = $collectionClass->find()->toArray();
-
 //Thực hiện tìm một sinh viên mang id nhận trên URL
 $id = $_GET['id'];
-$studentList = $collectionStudent->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
+$studentList = $collectionTeacher->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
 
 $name = $studentList['name'];
 $email = $studentList['email'];
-$idClass = $studentList['class'];
 $message = '';
-
-if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass']))
+if(isset($_POST['name']) && isset($_POST['email']))
 {
   $name = $_POST['name'];
   $email = $_POST['email'];
-  $idClass = $_POST['selectClass'];
 
-  if(empty($name) || empty($email) || empty($idClass)){
+  if(empty($name) || empty($email)){
     $message = 'Please enter your complete information and try again';
   }
   else{
     $document =[
       'name' => $name,
       'email' => $email,
-      'class' => new MongoDB\BSON\ObjectID($idClass)
     ];
-    if($collectionStudent->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set' => $document]));
+    if($collectionTeacher->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set' => $document]));
     {
-        header('Location: index.php');
+        header('Location: teacher.php');
         exit();
     }
   }
@@ -61,13 +53,13 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <title>edit-student</title>
+  <title>Edit-Teacher</title>
 </head>
 
 <body>
 <?php include_once './navigation.php' ?>
   <div class="container">
-    <h1 class="mt-5">Edit Student</h1>
+    <h1 class="mt-5">Edit Teacher</h1>
        <a href="index.php" class="btn btn-success float-right mb-2">Home</a>
      <form action="" method="POST">
          <div class="form-group">
@@ -77,19 +69,6 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
          <div class="form-group">
            <label for="email">Email</label>
            <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
-         </div>
-         <div class="form-group">
-           <label for="selectClass">Class</label>
-           <select class="form-control" name="selectClass" id="selectClass">
-            <?php foreach ($classList as $value) {
-            ?>
-            <option value="<?php echo $value['_id']?>" <?php echo $value['_id'] == $idClass ? 'selected' : ''?>>
-              <?php echo $value['name']?>
-            </option>
-            <?php 
-            }
-            ?>
-           </select>
          </div>
          <div class="text-danger"><?php echo $message ?></div>
          <button type="submit" class="btn btn-primary">Submit</button>

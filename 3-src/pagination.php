@@ -11,6 +11,10 @@ function createPageLinks($totalPage, $page, $pageType = 'INDEX', $keyword = '')
     {
         $pageType = 'search.php?keyword=' . $keyword . '&page=';
     }
+    if($pageType == 'TEACHER')
+    {
+        $pageType = 'teacher.php?page=';
+    }
 
     $disable = '';
     if($page == 1)

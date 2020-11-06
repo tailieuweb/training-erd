@@ -87,10 +87,10 @@ $studentObject = $collectionStudent->aggregate(array(
     <title>Student</title>
 </head>
 <body>
+<?php include_once './navigation.php' ?>
     <div class="container">
       <h1 class="title mt-5">Student List</h1>
       <a class="btn btn-success" href="add.php">Add</a>
-      <a class="btn btn-warning" href="login.php">Log out</a>
       <header class="d-flex float-right mb-3">
       <form class="form-inline my-2 my-lg-0 float-right m-2" action="search.php">
           <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search" value="<?php echo $keyword?>">

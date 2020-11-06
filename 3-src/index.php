@@ -35,7 +35,7 @@ if(!isset($_SESSION['login']))
 // }
 // $collectionClass->insertMany($documentClass);
 
-//Insert 100 students
+// Insert 100 students
 // $documentStudent = [];
 // for($i = 1; $i <= 100;$i++)
 // {
@@ -108,10 +108,11 @@ $studentObject = $collectionStudent->aggregate(array(
     <title>Student</title>
 </head>
 <body>
+    <?php include_once './navigation.php' ?>
     <div class="container">
       <h1 class="title mt-5">Student List</h1>
-      <a class="btn btn-success" href="add.php">Add</a>
-      <a class="btn btn-warning" href="login.php">Log out</a>
+      <a class="btn btn-success" href="add.php">Add Student</a>
+      <a class="btn btn-primary" href="add_subject_student.php">Add Subject for Student</a>
       <header class="d-flex float-right mb-3">
         <form class="form-inline my-2 my-lg-0 float-right m-2" action="search.php">
           <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search">
@@ -139,6 +140,7 @@ $studentObject = $collectionStudent->aggregate(array(
               <td><?php echo $value['email']?></td>
               <td><?php echo $value['classObject']['name']?></td>
               <td>
+                  <a href="subject_student.php?id=<?php echo $value['_id']?>" class="btn btn-success">Subjects Detail</a>
                   <a href="edit.php?id=<?php echo $value['_id']?>" class="btn btn-primary">Edit</a>
                     <form class="d-inline" action="index.php?page=<?php echo $page?>" method="POST" id="formSubmit">
                       <input type="hidden" value="<?php echo $value['_id']?>" name="studentID">

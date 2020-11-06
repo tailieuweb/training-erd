@@ -6,8 +6,7 @@ require 'pagination.php';
 $client = new MongoDB\Client();
 $db = $client->StudentManagement;
 
-$collectionClass = $db->classes;
-$collectionStudent = $db->students;
+$collectionTeacher = $db->teachers;
 
 //getLoginSession
 session_start();
@@ -17,30 +16,24 @@ if(!isset($_SESSION['login']))
   die();
 }
 
-
-$classList = $collectionClass->find()->toArray();
-
 $name = '';
 $email = '';
-$class = '';
 $message = '';
-if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass']))
+if(isset($_POST['name']) && isset($_POST['email']))
 {
   $name = $_POST['name'];
   $email = $_POST['email'];
-  $class = $_POST['selectClass'];
 
-  if(empty($name) || empty($email) || empty($class)){
+  if(empty($name) || empty($email)){
     $message = 'Please enter your complete information and try again';
   }
   else{
     $document =[
       'name' => $name,
       'email' => $email,
-      'class' => new MongoDB\BSON\ObjectID($class)
     ];
-    $collectionStudent->insertOne($document);
-    header('Location: index.php');
+    $collectionTeacher->insertOne($document);
+    header('Location: teacher.php');
     exit();
   }
 }
@@ -52,14 +45,14 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>add-student</title>
+    <title>Add-Teacher</title>
 </head>
 <body>
 <?php include_once './navigation.php' ?>
   <div class="container">
-   <h1 class="mt-5">Add Student</h1>
+   <h1 class="mt-5">Add Teacher</h1>
       <a href="index.php" class="btn btn-success float-right mb-2">Home</a>
-    <form action="add.php" method="POST">
+    <form action="add_teacher.php" method="POST">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
@@ -67,17 +60,6 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['selectClass'
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" class="form-control" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="selectClass">Class</label>
-          <select class="form-control" name="selectClass" id="selectClass">
-            <?php foreach ($classList as $value) {
-            ?>
-            <option value="<?php echo $value['_id']?>"><?php echo $value['name']?></option>
-            <?php 
-            }
-            ?>
-          </select>
         </div>
         <div class="text-danger"><?php echo $message ?></div>
         <button type="submit" class="btn btn-primary">Submit</button>
