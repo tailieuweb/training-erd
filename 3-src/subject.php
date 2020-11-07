@@ -87,7 +87,7 @@ $studentObject = $collectionSubject->find()->toArray();
           <thead>
             <tr>
               <th scope="col">Code</th>
-              <th scope="col">Name</th>
+              <th scope="col">Subject Name</th>
               <th scope="col">Subject Level</th>
             </tr>
           </thead>

@@ -17,6 +17,9 @@
             <li class="nav-item active">
               <a class="nav-link text-warning" href="./subject">Subject</a>
             </li>
+            <li class="nav-item active">
+              <a class="nav-link text-warning" href="./class">Class</a>
+            </li>
           </ul>
           <a class="btn btn-danger" href="login.php">Log out</a>
         </div>

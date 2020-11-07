@@ -1,5 +1,10 @@
 {
-    "require": {
-        "mongodb/mongodb": "^1.7"
-    }
+    "name": "minhkhang/mongodbphp",
+    "authors": [
+        {
+            "name": "MINHKHANG",
+            "email": "leminhkhang.tdc2018@gmail.com"
+        }
+    ],
+    "require": {}
 }

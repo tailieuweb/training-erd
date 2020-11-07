@@ -24,7 +24,8 @@ $subjectId = '';
 $teacherId = '';
 $point = 0;
 $message = '';
-if(isset($_POST['student_id']) && isset($_POST['subject_id']) && isset($_POST['teacher_id']) && isset($_POST['point']))
+if(isset($_POST['student_id']) && isset($_POST['subject_id']) && isset($_POST['teacher_id']) 
+	&& isset($_POST['point']))
 {
   $studentId = $_POST['student_id'];
   $subjectId = $_POST['subject_id'];
@@ -34,7 +35,8 @@ if(isset($_POST['student_id']) && isset($_POST['subject_id']) && isset($_POST['t
   $subjectIdReg = preg_match('/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i', $subjectId);
   $teacherIdReg = preg_match('/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i', $teacherId);
   $checkPoint = $point >= 0 && $point <= 10;
-  if(empty($studentId) || empty($subjectId) || empty($teacherId) || empty($point) || !$studentIdReg || !$subjectIdReg || !$teacherIdReg || !$checkPoint){
+  if(empty($studentId) || empty($subjectId) || empty($teacherId) || empty($point) 
+	  || !$studentIdReg || !$subjectIdReg || !$teacherIdReg || !$checkPoint){
     $message = 'Please check your complete information and try again';
   }
   else {

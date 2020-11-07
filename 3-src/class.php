@@ -13,7 +13,7 @@ file_put_contents('css/style.css', $scss->compile($scss_string));
 $client = new MongoDB\Client();
 $db = $client->StudentManagement;
 
-$collectionTeacher = $db->teachers;
+$collectionClass = $db->classes;
 
 
 //getLoginSession
@@ -24,23 +24,22 @@ if(!isset($_SESSION['login']))
   die();
 }
 
-// Insert 100 teacher
-// $documentTeacher = [];
-// for($i = 1; $i <= 100;$i++)
+// Insert 10 subject
+// $documentSubject= [];
+// for($i = 1; $i <= 10;$i++)
 // {
-//   $documentTeacher[] = [
-//     'name' => 'Teacher ' . $i,
-//     'email' => 'teacheremail000' . $i . '@gmail.com',
-//     'faculty' => 'Công Nghệ Thông Tin'
+//   $documentSubject[] = [
+//     'name' => 'Subject ' . $i,
+//     'subject_level' => $i%2 + 1,
 //   ];
 // }
-// $collectionTeacher->insertMany($documentTeacher);
+// $collectionClass->insertMany($documentSubject);
 
 //Delete
-if(isset($_POST['teacherID']))
+if(isset($_POST['classID']))
 {
-  $id = new MongoDB\BSON\ObjectID($_POST['teacherID']);
-  $collectionTeacher->deleteOne(['_id' => $id]);
+  $id = new MongoDB\BSON\ObjectID($_POST['classID']);
+  $collectionClass->deleteOne(['_id' => $id]);
 }
 
 //Số trang = 1 mặc định
@@ -59,11 +58,11 @@ $limit = 20;
 $skip = ($page - 1) * $limit;
 
 //Tổng số trang :
-$totalPage = ceil($collectionTeacher->count()/$limit);
+$totalPage = ceil($collectionClass->count()/$limit);
 
 //
 //$id = new MongoDB\BSON\ObjectID("5f96dc42ba250000c1004d76");
-$studentObject = $collectionTeacher->find()->toArray();
+$studentObject = $collectionClass->find()->toArray();
 // var_dump($studentObject[0]['classObject']);
 // die();
 
@@ -76,21 +75,19 @@ $studentObject = $collectionTeacher->find()->toArray();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Teachers</title>
+    <title>Subjects</title>
 </head>
 <body>
 <?php include_once './navigation.php' ?>
     <div class="container">
-      <h1 class="title mt-5">Teacher List</h1>
-      <a class="btn btn-success" href="add_teacher.php">Add Teacher</a>
+      <h1 class="title mt-5">Class List</h1>
+      <a class="btn btn-success" href="add_class.php">Add Class</a>
 
       <table class="table">
           <thead>
             <tr>
               <th scope="col">Code</th>
               <th scope="col">Name</th>
-              <th scope="col">Email</th>
-			  <th scope="col">Faculty</th>
             </tr>
           </thead>
           <tbody>
@@ -100,14 +97,10 @@ $studentObject = $collectionTeacher->find()->toArray();
             <tr class="student">
               <th><?php echo $value['_id']?></th>
               <th><?php echo $value['name']?></th>
-              <td><?php echo $value['email']?></td>
-			  <td><?php echo $value['faculty']?></td>
               <td>
-                  <a href="edit_teacher.php?id=<?php echo $value['_id']?>"
-				  class="btn btn-primary">Edit</a>
-                    <form class="d-inline" action="teacher.php?page=<?php echo $page?>" 
-					method="POST" id="formSubmit">
-                      <input type="hidden" value="<?php echo $value['_id']?>" name="teacherID">
+                  <a href="edit_class.php?id=<?php echo $value['_id']?>" class="btn btn-primary">Edit</a>
+                    <form class="d-inline" action="class.php?page=<?php echo $page?>" method="POST" id="formSubmit">
+                      <input type="hidden" value="<?php echo $value['_id']?>" name="classID">
                       <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
               </td>
