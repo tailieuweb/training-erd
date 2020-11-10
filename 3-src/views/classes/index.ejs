@@ -11,6 +11,34 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="/">TDC</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" href="/classes">Class</a>
+                    <a class="dropdown-item" href="/student">Student</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
   <div class="container">
     <h1 class="title">Class</h1>
     <a href="/classes/add" class="btn btn-success float-left m-2">Add</a>
@@ -18,7 +46,6 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <!-- <th scope="col">Student</th> -->
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -26,7 +53,6 @@
         <% classess.forEach(function(item){ %>
         <tr class="student">
           <th scope="row"><%- item.name %></th>
-          <!-- <th scope="col"></th> -->
           <td>
 
             <a href="/classes/edit/<%-item._id%>" class="btn btn-primary">Edit</a>
@@ -41,15 +67,6 @@
         <% }); %>
       </tbody>
     </table>
-    <!-- <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav> -->
   </div>
 </body>
 

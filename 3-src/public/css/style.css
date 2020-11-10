@@ -1,5 +1,7 @@
 body {
-  background: linear-gradient(0deg, #d2e8e8 35%, #e9e9e6 100%); }
+  background: linear-gradient(0deg, #d2e8e8 35%, #e9e9e6 100%);
+  font-family: 'Times New Roman', Times, serif;
+}
 
 table thead tr th:nth-child(1),
 table thead tr th:nth-child(3) {
@@ -8,3 +10,24 @@ table thead tr th:nth-child(3) {
 table tbody tr th:nth-child(1),
 table tbody tr td:nth-child(3) {
   color: #dc3545; }
+footer{
+  margin-top: 30px;
+}
+.card-img-top{
+  height: 500px;
+}
+.footer-information{
+  background-color: cadetblue;
+  color: white;
+  padding: 40px;
+}
+.name-school{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.ten{
+  text-align: center;
+  font-size: 2em;
+  padding: 50px;
+  font-weight: bold;
+}

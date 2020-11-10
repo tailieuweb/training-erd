@@ -1,5 +1,9 @@
 const Student = require("../models/student");
 const Classes = require("../models/classes");
+
+
+
+
 const bodyParser = require("body-parser");
 
 module.exports.add = function (req, res) {
@@ -32,6 +36,7 @@ module.exports.insertStudent = function (req, res) {
   });
 };
 
+
 module.exports.edit = async function (req, res) {
   const data = await Classes.find(function (err, data) {
     if (err) {
@@ -47,7 +52,6 @@ module.exports.edit = async function (req, res) {
       return item;
     }
   });
-
   res.render("student/edit", { student: item, classes: data });
 };
 
@@ -104,11 +108,6 @@ module.exports.search = async function (req, res) {
   var q = req.query.search;
   var students = await Student.find();
   var page = parseInt(req.query.page) || 1;
-  // Tìm kiếm
-  // searchStudent = students.filter(function (student) {
-  //   numberSP++;
-  //   return student.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-  // });
   var perPage = 10;
   var drop = (page - 1) * perPage;
   var end = page * perPage;
@@ -119,8 +118,6 @@ module.exports.search = async function (req, res) {
   var start = 0;
   var numberPage =
     (await Student.find({ name: { $regex: q } }).countDocuments()) / perPage;
-  // var numberPage = await Student.estimatedDocumentCount() / perPage;
-  // var studentPerPage = searchStudent.find(null, null, { skip: drop }).limit(perPage);
   var baseUrl = "?search=" + q + "&page=";
   res.render("student/index", {
     students: studentsSearch,

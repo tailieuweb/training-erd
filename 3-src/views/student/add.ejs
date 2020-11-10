@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <div class="container">
     <h1 class="title">Add Student</h1>
     <a href="/student" class="btn btn-success float-right m-2">Home</a>
@@ -26,15 +25,12 @@
       </div>
       <div class="form-group">
         <label for="Class">Class</label>
-
         <select class="form-control" name="classes" id="exampleFormControlSelect1">
           <% classess.forEach(function(item){ %>
           <option value="<%- item.id %>"><%- item.name %></option>
           <% }); %>
         </select>
-
       </div>
-
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
